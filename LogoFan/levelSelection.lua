@@ -19,13 +19,13 @@ local PADDING_LVL_BTN = 140
 ----------------------------------------------- Functions
 
 local function gotoMainMenu()
-	composer.gotoScene("mainMenu")
+	composer.gotoScene("mainMenu", {effect ="fromLeft"})
 end
 
 local function stageSelection(event)
 	local btnTapped = event.target
 	
-	composer.gotoScene("stageSelection", { params = btnTapped.id })
+	composer.gotoScene("stageSelection", { effect="fromRight", params = btnTapped.id })
 end
 
 local function createLevelBtns()

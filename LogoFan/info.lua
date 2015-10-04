@@ -16,13 +16,8 @@ local color_buttonStroke = {119/255, 122/255, 129/255}
 local color_font = {213/255, 218/255, 186/255}
 
 ----------------------------------------------- Functions
-
-local function gotoLevelSelection(event)
-	composer.gotoScene( "levelSelection", {effect ="fromRight"} )
-end
-
-local function gotoInfo(event)
-	composer.gotoScene( "info", {effect ="fromRight"} )
+local function gotoMainMenu()
+	composer.gotoScene("mainMenu", {effect ="fromLeft"})
 end
 
 ----------------------------------------------- Module functions 
@@ -41,52 +36,42 @@ function game:create(event)
 	
 	bg:setFillColor(unpack(color_bg))
 	
+	local back = display.newImage("img/back.png")
+	back.x = 60
+	back.y = 60
+	back:addEventListener("tap", gotoMainMenu)
+	backgroundLayer:insert(back)
+	
 	local logo = display.newImage("img/logolf.png")
 	logo.x = display.contentCenterX
 	logo.y = display.viewableContentHeight * 0.3
 	backgroundLayer:insert(logo)
 	
-	local btnStart = display.newRect(display.contentCenterX, display.viewableContentHeight * 0.6, display.viewableContentWidth * 0.7, 100)
-	btnStart:setFillColor(unpack(color_button))
-	btnStart.strokeWidth = 5
-	btnStart:setStrokeColor( unpack(color_buttonStroke) )
+	local strAOptions = {
+		text = "Desarrollado por Muaya",	 
+		y = display.viewableContentHeight*0.6,
+		x = display.contentCenterX,
+		font = native.systemFontBold,   
+		fontSize = 36,
+		align = "center"
+	}
 	
-	btnStart:addEventListener("tap", gotoLevelSelection)
-	backgroundLayer:insert(btnStart)
+	local stringA = display.newText(strAOptions)
+	stringA:setFillColor(unpack(color_font))
+	textLayer:insert(stringA)
 	
-	local btnStartTextOptions = {
-		text = "EMPEZAR",	 
-		x = btnStart.x,
-		y = btnStart.y,
+	local strBOptions = {
+		text = "Diseño Kamui Colors",	 
+		y = display.viewableContentHeight*0.7,
+		x = display.contentCenterX,
 		font = native.systemFontBold,   
 		fontSize = 36,
 		align = "center"
 	}
 
-	local btnStartText= display.newText(btnStartTextOptions)
-	btnStartText:setFillColor(unpack(color_font))
-	textLayer:insert(btnStartText)
-	
-	local btnInfo = display.newRect(display.contentCenterX, display.viewableContentHeight * 0.71, display.viewableContentWidth * 0.7, 100)
-	btnInfo:setFillColor(41/255, 44/255, 53/255)
-	btnInfo.strokeWidth = 5
-	btnInfo:setStrokeColor( 119/255, 122/255, 129/255 )
-	
-	btnInfo:addEventListener("tap", gotoInfo)
-	backgroundLayer:insert(btnInfo)
-	
-	local btnInfoTextOptions = {
-		text = "INFO",	 
-		x = btnInfo.x,
-		y = btnInfo.y,
-		font = native.systemFontBold,   
-		fontSize = 36,
-		align = "center"
-	}
-
-	local btnInfoText= display.newText(btnInfoTextOptions)
-	btnInfoText:setFillColor(unpack(color_font))
-	textLayer:insert(btnInfoText)
+	local stringB= display.newText(strBOptions)
+	stringB:setFillColor(unpack(color_font))
+	textLayer:insert(stringB)
     
 end
 
@@ -122,5 +107,7 @@ game:addEventListener( "hide" )
 game:addEventListener( "show" )
 
 return game
+
+
 
 
