@@ -1,5 +1,6 @@
 ----------------------------------------------- Home
 local composer = require("composer")
+local loadsave = require("loadsave")
 
 local game = composer.newScene() 
 ----------------------------------------------- Variables
@@ -7,12 +8,16 @@ local game = composer.newScene()
 local backgroundLayer
 local textLayer
 
+local nameField
+
 local stageName
 local stageImage
 local stageLevel
 local stageParams
 local stageGroup
 local answer
+local stagesList
+local stageId
 
 ----------------------------------------------- Constants
 
@@ -20,6 +25,7 @@ local color_bg = {26/255, 29/255, 38/255}
 local color_button = {41/255, 44/255, 53/255}
 local color_buttonStroke = {119/255, 122/255, 129/255}
 local color_font = {213/255, 218/255, 186/255}
+local color_green = {205/255, 220/255, 57/255}
 
 
 
@@ -29,19 +35,40 @@ local function gotoStageSelection()
 	composer.gotoScene("stageSelection", { params = stageParams[3] })
 end
 
-local function onComplete( event )
-   if event.action == "clicked" then
-        local i = event.index
-        if i == 1 then
-        end
-    end
+local function showCompleted()
+	local correctNameOptions = {
+		text = stageName,	 
+		x = display.contentCenterX,
+		y = display.viewableContentHeight*0.68,
+		font = native.systemFont,   
+		fontSize = 52,
+		align = "center"
+	}
+
+	local correctName = display.newText(correctNameOptions)
+	stageGroup:insert(correctName)
+
+	local correctLabelOpt = {
+		text = "CORRECTO",	 
+		x = display.contentCenterX,
+		y = display.viewableContentHeight*0.6,
+		font = native.systemFontBold,   
+		fontSize = 36,
+		align = "center"
+	}
+
+	local correctLabel = display.newText(correctLabelOpt)
+	correctLabel:setFillColor(unpack(color_green))
+	stageGroup:insert(correctLabel)
 end
 
 local function checkAnswer()
 	if string.lower(answer) == string.lower(stageName) then
-		local alert = native.showAlert( "LogoFan", "Correcto", { "OK" }, onComplete )
+		showCompleted()
+		stagesList[stageId].cleared = true
+		loadsave.saveTable( stagesList, "stages.json" )
 	else
-		local alert = native.showAlert( "LogoFan", "Incorrecto", { "OK" }, onComplete )
+		nameField:setTextColor(1,0,0)
 	end
 	
 end
@@ -68,11 +95,17 @@ local function setStage()
 	img.yScale = 0.7
 	stageGroup:insert(img)
 	
-	local nameField = native.newTextField( display.contentCenterX, display.viewableContentHeight*0.5, 500, 60 )
+	nameField = native.newTextField( display.contentCenterX, display.viewableContentHeight*0.5, 500, 60 )
 	nameField.font = native.newFont( native.systemFontBold, 24 )
 	nameField.text = ""
 	nameField:addEventListener( "userInput", userWrite )
 	stageGroup:insert(nameField)
+	
+	if stagesList[stageId].cleared then
+		showCompleted()
+	end
+	
+	
 end
 
 ----------------------------------------------- Module functions 
@@ -120,6 +153,8 @@ function game:show( event )
 		stageName = stageParams[1]
 		stageImage = stageParams[2]
 		stageLevel = stageParams[3]
+		stagesList = stageParams[4]
+		stageId = stageParams[5]
 		
 		stageGroup = display.newGroup()
 		setStage()

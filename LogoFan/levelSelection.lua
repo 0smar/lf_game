@@ -1,5 +1,6 @@
 ----------------------------------------------- Home
 local composer = require("composer")
+local loadsave = require("loadsave")
 
 local game = composer.newScene() 
 ----------------------------------------------- Variables
@@ -25,7 +26,7 @@ end
 local function stageSelection(event)
 	local btnTapped = event.target
 	
-	composer.gotoScene("stageSelection", { effect="fromRight", params = btnTapped.id })
+	composer.gotoScene("stageSelection", { params = btnTapped.id })
 end
 
 local function createLevelBtns()
@@ -106,7 +107,6 @@ function game:show( event )
         
     if ( phase == "will" ) then
         --print("will show - levels")
-
     elseif ( phase == "did" ) then
         
     end

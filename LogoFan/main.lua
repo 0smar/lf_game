@@ -1,4 +1,4 @@
-require "CiderDebugger";-----Main 
+--require "CiderDebugger";-----Main 
 
 local composer = require("composer")
 
@@ -12,10 +12,6 @@ local composer = require("composer")
  
 local function initialize()
 	display.setStatusBar( display.HiddenStatusBar )
-	
-	if "Win" == system.getInfo( "platformName" ) then
-		require("win_fix")
-	end
 end
 
 local function start()
