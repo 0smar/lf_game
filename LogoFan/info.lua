@@ -37,8 +37,10 @@ function game:create(event)
 	bg:setFillColor(unpack(color_bg))
 	
 	local back = display.newImage("img/back.png")
-	back.x = 60
-	back.y = 60
+	back.x = 80
+	back.y = 80
+	back.xScale = 1.7
+	back.yScale = 1.7
 	back:addEventListener("tap", gotoMainMenu)
 	backgroundLayer:insert(back)
 	

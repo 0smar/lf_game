@@ -1,6 +1,7 @@
 ----------------------------------------------- Home
 local composer = require("composer")
 local loadsave = require("loadsave")
+local ads = require("ads")
 
 local game = composer.newScene() 
 ----------------------------------------------- Variables
@@ -16,6 +17,9 @@ local color_buttonStroke = {119/255, 122/255, 129/255}
 local color_font = {213/255, 218/255, 186/255}
 
 local PADDING_LVL_BTN = 140
+
+local appID = "ca-app-pub-6677050964748392/6761561861"
+local adProvider = "admob"
 
 ----------------------------------------------- Functions
 
@@ -59,7 +63,7 @@ local function createLevelBtns()
 
 		local btnStartText= display.newText(lvlBtnTextOptions)
 		btnStartText:setFillColor(unpack(color_font))
-		textLayer:insert(btnStartText)
+		lvlBtnsGroup:insert(btnStartText)
 	end
 	
 	
@@ -77,12 +81,14 @@ function game:create(event)
     sceneView:insert(textLayer)
 
     local bg = display.newRect( display.contentCenterX, display.contentCenterY, display.viewableContentWidth, display.viewableContentHeight )
-    backgroundLayer:insert(bg)
 	bg:setFillColor(unpack(color_bg))
+	backgroundLayer:insert(bg)
 	
 	local back = display.newImage("img/back.png")
-	back.x = 60
-	back.y = 60
+	back.x = 80
+	back.y = 80
+	back.xScale = 1.7
+	back.yScale = 1.7
 	back:addEventListener("tap", gotoMainMenu)
 	backgroundLayer:insert(back)
 	
@@ -107,6 +113,7 @@ function game:show( event )
         
     if ( phase == "will" ) then
         --print("will show - levels")
+		
     elseif ( phase == "did" ) then
         
     end

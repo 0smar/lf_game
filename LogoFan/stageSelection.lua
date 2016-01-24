@@ -1,7 +1,7 @@
 ----------------------------------------------- Home
 local composer = require("composer")
-local json = require("json")
 local loadsave = require("loadsave")
+local ads = require("ads")
 
 local game = composer.newScene() 
 ----------------------------------------------- Variables
@@ -24,121 +24,11 @@ local color_font = {213/255, 218/255, 186/255}
 local PADDING_STAGE = 140
 local VPADDING_STAGE = 140
 
---local STAGES = {
---	[1] = {
---		[1] = {name = "UVM", image = "uvm.jpg"},
---		[2] = {name = "De la Rosa", image = "delarosa.jpg"},
---		[3] = {name = "Conacyt", image = "conacyt.jpg"},
---		[4] = {name = "Bardahl", image = "bardahl.jpg"},
---		[5] = {name = "Mastretta", image = "mastretta.jpg"},
---		[6] = {name = "Tortas Hipocampo", image = "hipocampo.jpg"},
---		[7] = {name = "Tia Rosa", image = "tiarosa.jpg"},
---		[8] = {name = "Manzanita Sol", image = "manzanitasol.jpg"},
---		[9] = {name = "Partido Verde", image = "verde.jpg"},
---		[10] = {name = "Prendalana", image = "prendalana.jpg"},
---		[11] = {name = "Manhattan", image = "manhattan.jpg"},
---		[12] = {name = "Kumon", image = "kumon.jpg"},
---		[13] = {name = "Omnilife", image = "omnilife.jpg"},
---		[14] = {name = "Latincasa", image = "latincasa.jpg"},
---		[15] = {name = "Ilusion", image = "ilusion.jpg"},
---		[16] = {name = "D Paul", image = "dpaul.jpg"},
---		[17] = {name = "Aeromexico", image = "aeromexico.jpg"},
---		[18] = {name = "Mens Factory", image = "mensfactory.jpg"},
---		[19] = {name = "Don Julio", image = "donjulio.jpg"},
---		[20] = {name = "Devlyn", image = "devlyn.jpg"}
---	},
---	[2] = {
---		[1] = {name = "Flexi", image = "flexi.jpg"},
---		[2] = {name = "Gandhi", image = "gandhi.jpg"},
---		[3] = {name = "Iberia", image = "iberia.jpg"},
---		[4] = {name = "Las Alitas", image = "lasalitas.jpg"},
---		[5] = {name = "Potzollcalli", image = "potzollcalli.jpg"},
---		[6] = {name = "La Chata", image = "lachata.jpg"},
---		[7] = {name = "Prendamex", image = "prendamex.jpg"},
---		[8] = {name = "Dolphy", image = "dolphy.jpg"},
---		[9] = {name = "Sello Rojo", image = "sellorojo.jpg"},
---		[10] = {name = "Italian Coffee", image = "italiancoffee.jpg"},
---		[11] = {name = "Dico", image = "dico.jpg"},
---		[12] = {name = "Iusacell", image = "iusacell.jpg"},
---		[13] = {name = "La Sierra", image = "lasierra.jpg"},
---		[14] = {name = "La Botana", image = "labotana.jpg"},
---		[15] = {name = "Cafe Oro", image = "cafeoro.jpg"},
---		[16] = {name = "Grupo Senda", image = "Gruposenda.jpg"},
---		[17] = {name = "La Moderna", image = "lamoderna.jpg"},
---		[18] = {name = "Muebles Troncoso", image = "mueblestroncoso.jpg"},
---		[19] = {name = "Mexicana", image = "amexicana.jpg"},
---		[20] = {name = "El Mayorista", image = "elmayorista.jpg"}
---	},
---	[3] = {
---		[1] = {name = "Futura", image = "futura.jpg"},
---		[2] = {name = "Viana", image = "viana.jpg"},
---		[3] = {name = "Vitacilina", image = "vitacilina.jpg"},
---		[4] = {name = "Colchones Atlas", image = "colchonesatlas.jpg"},
---		[5] = {name = "La Europea", image = "laeuropea.jpg"},
---		[6] = {name = "Carranco", image = "carranco.jpg"},
---		[7] = {name = "Nacional Monte de Piedad", image = "montedepiedad.jpg"},
---		[8] = {name = "Mr Fish", image = "mrfish.jpg"},
---		[9] = {name = "Nutrisa", image = "nutrisa.jpg"},
---		[10] = {name = "Caballitos", image = "caballitos.jpg"},
---		[11] = {name = "Verde Valle", image = "verdevalle.jpg"},
---		[12] = {name = "Tintoreria Max", image = "tintoreriamax.jpg"},
---		[13] = {name = "Jiffy Express", image = "jiffyexpress.jpg"},
---		[14] = {name = "Mixup", image = "mixup.jpg"},
---		[15] = {name = "Lala", image = "lala.jpg"},
---		[16] = {name = "Cinepolis", image = "cinepolis.jpg"},
---		[17] = {name = "Fundacion Donde", image = "fundaciondonde.jpg"},
---		[18] = {name = "Tec Milenio", image = "tecmilenio.jpg"},
---		[19] = {name = "Pressto", image = "pressto.jpg"},
---		[20] = {name = "Nivea", image = "nivea.jpg"}
---	},
---	[4] = {
---		[1] = {name = "Bodega Aurrera", image = "bodegaaurrera.jpg"},
---		[2] = {name = "Cemex", image = "cemex.jpg"},
---		[3] = {name = "Herdez", image = "herdez.jpg"},
---		[4] = {name = "Circo Atayde Hermanos", image = "circoataydehermanos.jpg"},
---		[5] = {name = "Misternnis", image = "misternnis.jpg"},
---		[6] = {name = "3 Hermanos", image = "treshermanos.jpg"},
---		[7] = {name = "Volaris", image = "volaris.jpg"},
---		[8] = {name = "Universidad Anahuac", image = "universidadanahuac.jpg"},
---		[9] = {name = "Morena", image = "morena.jpg"},
---		[10] = {name = "El Almacen", image = "elalmacen.jpg"},
---		[11] = {name = "Star", image = "star.jpg"},
---		[12] = {name = "Montes", image = "montes.jpg"},
---		[13] = {name = "Cementos Fortaleza", image = "cementosfortaleza.jpg"},
---		[14] = {name = "Alpura", image = "alpura.jpg"},
---		[15] = {name = "Hermanos Vazquez", image = "hermanosvazquez.jpg"},
---		[16] = {name = "Televisa", image = "televisa.jpg"},
---		[17] = {name = "Elektra", image = "elektra.jpg"},
---		[18] = {name = "Costanzo", image = "costanzo.jpg"},
---		[19] = {name = "Sushilito", image = "sushilito.jpg"},
---		[20] = {name = "Famsa", image = "famsa.jpg"}
---	},
---	[5] = {
---		[1] = {name = "Farmacias ABC", image = "farmaciasabc.jpg"},
---		[2] = {name = "Interjet", image = "interjet.jpg"},
---		[3] = {name = "Cablecom", image = "cablecom.jpg"},
---		[4] = {name = "Rotoplas", image = "rotoplas.jpg"},
---		[5] = {name = "Oxxo", image = "oxxo.jpg"},
---		[6] = {name = "Farmatodo", image = "farmatodo.jpg"},
---		[7] = {name = "Freddy", image = "freddy.jpg"},
---		[8] = {name = "Steren", image = "steren.jpg"},
---		[9] = {name = "Aldo Conti", image = "aldoconti.jpg"},
---		[10] = {name = "Padrisimo", image = "padrisimo.jpg"},
---		[11] = {name = "La Gloria", image = "lagloria.jpg"},
---		[12] = {name = "El Pollo Loco", image = "elpolloloco.jpg"},
---		[13] = {name = "Jarritos", image = "jarritos.jpg"},
---		[14] = {name = "Caritas", image = "caritas.jpg"},
---		[15] = {name = "Inmaculada", image = "inmaculada.jpg"},
---		[16] = {name = "Roshfrans", image = "roshfrans.jpg"},
---		[17] = {name = "Tony Papelerias", image = "papeleriastony.jpg"},
---		[18] = {name = "Fresh Salads", image = "freshsalads.jpg"},
---		[19] = {name = "Santa Clara", image = "santaclara.jpg"},
---		[20] = {name = "Salinas y Rocha", image = "salinasyrocha.jpg"}
---	}
---}
+local appID = "ca-app-pub-6677050964748392/2625519462"
+local adProvider = "admob"
 
 local STAGES = {
-	[1] = {name = "UVM", image = "uvm.jpg", clared = false},
+	[1] = {name = "Aeromexico", image = "aeromexico.jpg", clared = false},
 	[2] = {name = "De la Rosa", image = "delarosa.jpg", clared = false},
 	[3] = {name = "Conacyt", image = "conacyt.jpg", clared = false},
 	[4] = {name = "Bardahl", image = "bardahl.jpg", clared = false},
@@ -154,13 +44,13 @@ local STAGES = {
 	[14] = {name = "Latincasa", image = "latincasa.jpg", clared = false},
 	[15] = {name = "Ilusion", image = "ilusion.jpg", clared = false},
 	[16] = {name = "D Paul", image = "dpaul.jpg", clared = false},
-	[17] = {name = "Aeromexico", image = "aeromexico.jpg", clared = false},
+	[17] = {name = "Sushi Roll", image = "sushiroll.jpg", clared = false},
 	[18] = {name = "Mens Factory", image = "mensfactory.jpg", clared = false},
 	[19] = {name = "Don Julio", image = "donjulio.jpg", clared = false},
 	[20] = {name = "Devlyn", image = "devlyn.jpg", clared = false},
 	[21] = {name = "Flexi", image = "flexi.jpg", clared = false},
 	[22] = {name = "Gandhi", image = "gandhi.jpg", clared = false},
-	[23] = {name = "Iberia", image = "iberia.jpg", clared = false},
+	[23] = {name = "Telcel", image = "telcel.jpg", clared = false},
 	[24] = {name = "Las Alitas", image = "lasalitas.jpg", clared = false},
 	[25] = {name = "Potzollcalli", image = "potzollcalli.jpg", clared = false},
 	[26] = {name = "La Chata", image = "lachata.jpg", clared = false},
@@ -241,12 +131,27 @@ local STAGES = {
 }
 ----------------------------------------------- Functions
 
+local function adListener( event )
+    local msg = event.response
+    -- Quick debug message regarding the response from the library
+    print( "Message from the ads library: ", msg )
+
+    if ( event.isError ) then
+        print( "Error, no ad received", msg )
+    else
+        print( "Ah ha! Got one!" )
+    end
+end
+
 local function gotoLevelSelection(event)
 	composer.gotoScene("levelSelection", {effect ="fromLeft"})
 end
 
 local function startGame(event)
 	local target = event.target
+	
+	print(target.name)
+	
 	parameters = {
 		[1] = target.name,
 		[2] = target.image,
@@ -261,7 +166,7 @@ local function generateStages()
 	local totalWidth = 3 * PADDING_STAGE
 	local startX = display.contentCenterX - totalWidth * 0.5
 	
-	local totalHeight = 4 * VPADDING_STAGE
+	local totalHeight = 3 * VPADDING_STAGE
 	local startY = display.viewableContentHeight*0.42 - totalHeight*0.5
 	
 	stagesGrp = display.newGroup()
@@ -271,18 +176,32 @@ local function generateStages()
 	for index = 1, 5 do
 		for j = 1, 4 do
 			local stageStep = elementCount + 20*(level-1)
-			local stage = display.newImage("img/logos/"..stagesList[stageStep].image)
-			stage.xScale = 0.25
-			stage.yScale = 0.25
-			stage.x = startX + (j - 1) * PADDING_STAGE
-			stage.y = startY + (index - 1) * VPADDING_STAGE
-			if stagesList[stageStep].cleared then
-				stage.alpha = 1
+			local stage = display.newGroup()
+			
+			local stageI = display.newImage("img/logos/"..stagesList[stageStep].image)
+			stageI.xScale = 0.25
+			stageI.yScale = 0.25
+			stageI.x = startX + (j - 1) * PADDING_STAGE
+			stageI.y = startY + (index - 1) * VPADDING_STAGE
+			stage:insert(stageI)
+			
+			local stageC = display.newImage("img/logosc/"..stagesList[stageStep].image)
+			stageC.xScale = 0.25
+			stageC.yScale = 0.25
+			stageC.x = startX + (j - 1) * PADDING_STAGE
+			stageC.y = startY + (index - 1) * VPADDING_STAGE
+			stage:insert(stageC)
+			
+			if stagesList[stageStep].clared then
+				stageC.alpha = 1
+				stageI.alpha = 0
 			else
-				stage.alpha = 0.5
+				stageI.alpha = 0.5
+				stageC.alpha = 0
 			end
-			stage.name = STAGES[stageStep].name
+			
 			stage.image = STAGES[stageStep].image
+			stage.name = STAGES[stageStep].name
 			stage.level = level
 			stage.id = stageStep
 			stage:addEventListener("tap", startGame)
@@ -309,21 +228,24 @@ function game:create(event)
     sceneView:insert(textLayer)
 
     local bg = display.newRect( display.contentCenterX, display.contentCenterY, display.viewableContentWidth, display.viewableContentHeight )
-    backgroundLayer:insert(bg)
 	bg:setFillColor(unpack(color_bg))
+	backgroundLayer:insert(bg)
 	
 	local back = display.newImage("img/back.png")
-	back.x = 60
-	back.y = 60
+	back.x = 80
+	back.y = 80
+	back.xScale = 1.7
+	back.yScale = 1.7
 	back:addEventListener("tap", gotoLevelSelection)
 	backgroundLayer:insert(back)
 	
 	local logo = display.newImage("img/logolf.png")
 	logo.x = display.contentCenterX
-	logo.y = display.viewableContentHeight * 0.85
-	logo.xScale = 0.7
-	logo.yScale = 0.7
+	logo.y = display.viewableContentHeight * 0.1
+	logo.xScale = 0.5
+	logo.yScale = 0.5
 	backgroundLayer:insert(logo)
+	
 	
 end
 
@@ -340,9 +262,11 @@ function game:show( event )
 		level = event.params
 		
 		stagesList = loadsave.loadTable( "stages.json" ) or STAGES
-		
 		generateStages()
 		parameters = ""
+		
+		ads.init( adProvider, appID, adListener )
+		ads.show( "banner", { x=0, y=100000 } )
 		
     elseif ( phase == "did" ) then
         
@@ -354,7 +278,7 @@ function game:hide( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-		
+		ads.hide()
 		display.remove(stagesGrp)
         
 	elseif ( phase == "did" ) then

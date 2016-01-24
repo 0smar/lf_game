@@ -18,7 +18,6 @@ local stageGroup
 local answer
 local stagesList
 local stageId
-
 ----------------------------------------------- Constants
 
 local color_bg = {26/255, 29/255, 38/255}
@@ -27,46 +26,44 @@ local color_buttonStroke = {119/255, 122/255, 129/255}
 local color_font = {213/255, 218/255, 186/255}
 local color_green = {205/255, 220/255, 57/255}
 
-
-
 ----------------------------------------------- Functions
 
 local function gotoStageSelection()
+	native.setKeyboardFocus( nil )
+	
+	loadsave.saveTable( stagesList, "stages.json" )
 	composer.gotoScene("stageSelection", { params = stageParams[3] })
 end
 
-local function showCompleted()
-	local correctNameOptions = {
-		text = stageName,	 
-		x = display.contentCenterX,
-		y = display.viewableContentHeight*0.68,
-		font = native.systemFont,   
-		fontSize = 52,
-		align = "center"
-	}
-
-	local correctName = display.newText(correctNameOptions)
-	stageGroup:insert(correctName)
-
+local function compAnimation()
+	
 	local correctLabelOpt = {
 		text = "CORRECTO",	 
 		x = display.contentCenterX,
-		y = display.viewableContentHeight*0.6,
+		y = display.viewableContentHeight*0.4,
 		font = native.systemFontBold,   
-		fontSize = 36,
+		fontSize = 44,
 		align = "center"
 	}
 
 	local correctLabel = display.newText(correctLabelOpt)
 	correctLabel:setFillColor(unpack(color_green))
 	stageGroup:insert(correctLabel)
+	correctLabel.alpha = 0
+	
+	transition.to(correctLabel, { delay = 100, time = 800, alpha = 1, transition = easing.outExpo, y = display.viewableContentHeight*0.6, 
+	onComplete = function()
+		gotoStageSelection()
+	end
+		})
 end
 
 local function checkAnswer()
+	native.setKeyboardFocus( nil )
 	if string.lower(answer) == string.lower(stageName) then
-		showCompleted()
-		stagesList[stageId].cleared = true
+		stagesList[stageId].clared = true
 		loadsave.saveTable( stagesList, "stages.json" )
+		compAnimation()
 	else
 		nameField:setTextColor(1,0,0)
 	end
@@ -87,8 +84,32 @@ local function userWrite( event )
     end
 end
 
+local function setStageComplete()
+	local img
+	img = display.newImage("img/logosc/"..stageImage)
+	img.x = display.contentCenterX
+	img.y = display.viewableContentHeight * 0.35
+	img.xScale = 0.9
+	img.yScale = 0.9
+	stageGroup:insert(img)
+	
+	local compNameOptions = {
+		text = string.upper(stageName),	 
+		x = display.contentCenterX,
+		y = display.viewableContentHeight*0.6,
+		font = native.systemFontBold,   
+		fontSize = 50,
+		align = "center"
+	}
+	
+	local completedName = display.newText(compNameOptions)
+	completedName:setFillColor(unpack(color_font))
+	stageGroup:insert(completedName)
+end
+
 local function setStage()
-	local img = display.newImage("img/logos/"..stageImage)
+	local img
+	img = display.newImage("img/logos/"..stageImage)
 	img.x = display.contentCenterX
 	img.y = display.viewableContentHeight * 0.3
 	img.xScale = 0.7
@@ -96,16 +117,11 @@ local function setStage()
 	stageGroup:insert(img)
 	
 	nameField = native.newTextField( display.contentCenterX, display.viewableContentHeight*0.5, 500, 60 )
-	nameField.font = native.newFont( native.systemFontBold, 24 )
+	nameField.font = native.newFont( native.systemFontBold, 36 )
 	nameField.text = ""
 	nameField:addEventListener( "userInput", userWrite )
 	stageGroup:insert(nameField)
-	
-	if stagesList[stageId].cleared then
-		showCompleted()
-	end
-	
-	
+
 end
 
 ----------------------------------------------- Module functions 
@@ -120,12 +136,14 @@ function game:create(event)
     sceneView:insert(textLayer)
 
     local bg = display.newRect( display.contentCenterX, display.contentCenterY, display.viewableContentWidth, display.viewableContentHeight )
-    backgroundLayer:insert(bg)
 	bg:setFillColor(unpack(color_bg))
-	
+	backgroundLayer:insert(bg)
+		
 	local back = display.newImage("img/back.png")
-	back.x = 60
-	back.y = 60
+	back.x = 80
+	back.y = 80
+	back.xScale = 1.7
+	back.yScale = 1.7
 	back:addEventListener("tap", gotoStageSelection)
 	backgroundLayer:insert(back)
 	
@@ -157,7 +175,12 @@ function game:show( event )
 		stageId = stageParams[5]
 		
 		stageGroup = display.newGroup()
-		setStage()
+		
+		if stagesList[stageId].clared then
+			setStageComplete()
+		else
+			setStage()
+		end
 
     elseif ( phase == "did" ) then
         

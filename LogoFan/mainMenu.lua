@@ -7,7 +7,6 @@ local game = composer.newScene()
 local backgroundLayer
 local textLayer
 
-
 ----------------------------------------------- Constants
 
 local color_bg = {26/255, 29/255, 38/255}
@@ -37,9 +36,8 @@ function game:create(event)
     sceneView:insert(textLayer)
 
     local bg = display.newRect( display.contentCenterX, display.contentCenterY, display.viewableContentWidth, display.viewableContentHeight )
-    backgroundLayer:insert(bg)
-	
 	bg:setFillColor(unpack(color_bg))
+	backgroundLayer:insert(bg)
 	
 	local logo = display.newImage("img/logolf.png")
 	logo.x = display.contentCenterX
@@ -50,7 +48,6 @@ function game:create(event)
 	btnStart:setFillColor(unpack(color_button))
 	btnStart.strokeWidth = 5
 	btnStart:setStrokeColor( unpack(color_buttonStroke) )
-	
 	btnStart:addEventListener("tap", gotoLevelSelection)
 	backgroundLayer:insert(btnStart)
 	
@@ -71,9 +68,8 @@ function game:create(event)
 	btnInfo:setFillColor(41/255, 44/255, 53/255)
 	btnInfo.strokeWidth = 5
 	btnInfo:setStrokeColor( 119/255, 122/255, 129/255 )
-	
 	btnInfo:addEventListener("tap", gotoInfo)
-	backgroundLayer:insert(btnInfo)
+	textLayer:insert(btnInfo)
 	
 	local btnInfoTextOptions = {
 		text = "INFO",	 
