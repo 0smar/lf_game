@@ -2,6 +2,7 @@
 local composer = require("composer")
 local loadsave = require("loadsave")
 local ads = require("ads")
+local widget = require("widget")
 
 local game = composer.newScene() 
 ----------------------------------------------- Variables
@@ -17,6 +18,7 @@ local color_buttonStroke = {119/255, 122/255, 129/255}
 local color_font = {213/255, 218/255, 186/255}
 
 local PADDING_LVL_BTN = 140
+local numLvls = 16
 
 local appID = "ca-app-pub-6677050964748392/6761561861"
 local adProvider = "admob"
@@ -29,19 +31,44 @@ end
 
 local function stageSelection(event)
 	local btnTapped = event.target
-	
 	composer.gotoScene("stageSelection", { params = btnTapped.id })
 end
 
+local function scrollListener( event )
+
+    local phase = event.phase
+    
+
+    return true
+end
+
+
+
 local function createLevelBtns()
 	
+		local lvlBtnsGroup = display.newGroup()
+	
+	local scrollView = widget.newScrollView(
+		{
+			top = 400,
+			left = 0,
+			hideBackground = true,
+			width = display.viewableContentWidth,
+			height = display.viewableContentHeight*0.63,
+			scrollWidth = 0,
+			scrollHeight = 110*(numLvls+1),
+			horizontalScrollDisabled = true,
+			listener = scrollListener
+		}
+	)
+	
+	backgroundLayer:insert(scrollView)
+	scrollView:insert(lvlBtnsGroup)
+	
 	local totalWidth = 4 * PADDING_LVL_BTN
-	local startY = display.viewableContentHeight*0.6 - totalWidth * 0.5
+	local startY = display.viewableContentHeight*0.28 - totalWidth * 0.5
 	
-	local lvlBtnsGroup = display.newGroup()
-	backgroundLayer:insert(lvlBtnsGroup)
-	
-	for index = 1, 5 do
+	for index = 1, numLvls do
 		local lvlBtn = display.newRect(display.contentCenterX, display.viewableContentHeight, display.viewableContentWidth * 0.7, 100)
 		lvlBtn.x = display.viewableContentWidth*0.5
 		lvlBtn.y = startY + (index - 1) * PADDING_LVL_BTN
@@ -60,12 +87,16 @@ local function createLevelBtns()
 			fontSize = 36,
 			align = "center"
 		}
+		
+		if lvlBtn.id == 16 then
+			lvlBtn.alpha = 0
+			lvlBtnTextOptions.text = ""
+		end
 
 		local btnStartText= display.newText(lvlBtnTextOptions)
 		btnStartText:setFillColor(unpack(color_font))
 		lvlBtnsGroup:insert(btnStartText)
 	end
-	
 	
 end
 

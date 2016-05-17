@@ -127,7 +127,27 @@ local STAGES = {
 	[97] = {name = "Tony Papelerias", image = "papeleriastony.jpg", clared = false},
 	[98] = {name = "Fresh Salads", image = "freshsalads.jpg", clared = false},
 	[99] = {name = "Santa Clara", image = "santaclara.jpg", clared = false},
-	[100] = {name = "Salinas y Rocha", image = "salinasyrocha.jpg", clared = false}
+	[100] = {name = "Salinas y Rocha", image = "salinasyrocha.jpg", clared = false},
+	[101] = {name = "Farmacias ABC", image = "farmaciasabc.jpg", clared = false},
+	[102] = {name = "Interjet", image = "interjet.jpg", clared = false},
+	[103] = {name = "Cablecom", image = "cablecom.jpg", clared = false},
+	[104] = {name = "Rotoplas", image = "rotoplas.jpg", clared = false},
+	[105] = {name = "Oxxo", image = "oxxo.jpg", clared = false},
+	[106] = {name = "Farmatodo", image = "farmatodo.jpg", clared = false},
+	[107] = {name = "Freddy", image = "freddy.jpg", clared = false},
+	[108] = {name = "Steren", image = "steren.jpg", clared = false},
+	[109] = {name = "Aldo Conti", image = "aldoconti.jpg", clared = false},
+	[110] = {name = "Padrisimo", image = "padrisimo.jpg", clared = false},
+	[111] = {name = "La Gloria", image = "lagloria.jpg", clared = false},
+	[112] = {name = "El Pollo Loco", image = "elpolloloco.jpg", clared = false},
+	[113] = {name = "Jarritos", image = "jarritos.jpg", clared = false},
+	[114] = {name = "Caritas", image = "caritas.jpg", clared = false},
+	[115] = {name = "Inmaculada", image = "inmaculada.jpg", clared = false},
+	[116] = {name = "Roshfrans", image = "roshfrans.jpg", clared = false},
+	[117] = {name = "Tony Papelerias", image = "papeleriastony.jpg", clared = false},
+	[118] = {name = "Fresh Salads", image = "freshsalads.jpg", clared = false},
+	[119] = {name = "Santa Clara", image = "santaclara.jpg", clared = false},
+	[120] = {name = "Salinas y Rocha", image = "salinasyrocha.jpg", clared = false}
 }
 ----------------------------------------------- Functions
 
